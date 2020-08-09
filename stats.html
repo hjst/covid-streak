@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Days since</title>
+    <title>COVID-19 Streak</title>
     <script lang="JavaScript">
         const params = new URLSearchParams(window.location.search);
         const areaType = "utla";
@@ -61,6 +61,7 @@
                 document.getElementById("dataSource").href = query_url;
                 document.getElementById("daysSince").innerText = `${count_days_since(payload.data)}`;
                 document.getElementById("areaName").innerText = tidy_name(payload.data[0].areaName);
+                document.title += `: ${tidy_name(payload.data[0].areaName)}`;
                 const streak = find_streaks(payload.data.reverse()).reduce(
                     (prev, curr) => (prev.numDays > curr.numDays) ? prev : curr, {});
                 if (streak) {
