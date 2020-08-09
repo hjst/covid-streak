@@ -7,7 +7,7 @@
         const params = new URLSearchParams(window.location.search);
         const areaType = "utla";
         // const areaCode = "E06000019"
-        const areaCode = (params.get("area")) ? params.get("area") : "E06000019";
+        const areaCode = (params.get("area"));
         const responseStructure = {
             "date": "date",
             "areaName": "areaName",
