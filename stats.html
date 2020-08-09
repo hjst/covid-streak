@@ -6,7 +6,6 @@
     <script lang="JavaScript">
         const params = new URLSearchParams(window.location.search);
         const areaType = "utla";
-        // const areaCode = "E06000019"
         const areaCode = (params.get("area"));
         const responseStructure = {
             "date": "date",
@@ -73,6 +72,11 @@
     </script>
 </head>
 <body>
+<noscript>
+    <p>
+        This page uses Javascript to pull stats from the gov.uk COVID-19 API.
+    </p>
+</noscript>
 <h1>Days since last confirmed case: <span id="daysSince"><em>searching…</em></span></h1>
 <h2 id="areaName"><em>[area name]</em></h2>
 <p>Longest streak of no new cases: <span id="streak"><em>[unknown]</em></span></p>
