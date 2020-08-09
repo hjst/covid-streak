@@ -2,11 +2,32 @@ body {
     background-color: #eee;
     color: #111;
     font-family: Georgia, serif;
+    font-size: 14pt;
+}
+h1 {
+    font-size: 170%;
+    text-decoration: underline;
+    font-weight: normal;
+}
+p.current-streak {
+    font-size: 130%;
+    line-height: 120%;
+}
+p { font-size: 100% }
+span#daysSince {
+    font-size: 200%;
+    font-weight: bold;
+    padding-left: 10pt;
 }
 a, a:hover, a:visited, a:active {
     color: #111;
 }
-section.stats {
+p.previous-streak {
+    margin-top: 3em;
+    padding-top: 1em;
+    border-top: 1px dashed #aaa;
+}
+div.stats {
     padding: 1em;
     position: absolute;
     top: 50%;
@@ -14,11 +35,14 @@ section.stats {
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-section.utla-list {
+div.utla-list {
     padding: 1em;
     max-width: 35em;
     margin-left: auto;
     margin-right: auto;
+}
+p.data-source {
+    font-size: 70%;
 }
 @media screen and (prefers-color-scheme: dark) {
     body {
