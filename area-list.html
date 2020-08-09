@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UK Upper-Tier Local Authority area listing</title>
+    <script lang="JavaScript">
+        const params = new URLSearchParams(window.location.search);
+        const areaType = (params.get("areaType")) ? params.get("areaType") : "utla";
+        const responseStructure = {
+            "name": "areaName",
+            "code": "areaCode"
+        };
+        const query_url = `https://api.coronavirus.data.gov.uk/v1/data`
+            + `?filters=areaType=${areaType}`
+            + `&structure=${JSON.stringify(responseStructure)}`
+            + `&latestBy=areaCode`;
+        console.log(query_url);
+        fetch(query_url)
+            .then(response => response.json())
+            .then(areas => {
+
+                areas.data.forEach(area => {
+                    document.getElementById("areaList").insertAdjacentHTML(
+                            'beforeend',
+                            `<li><a href="./stats.html?area=${area.code}">${area.name}</a></li>`
+                    );
+                });
+            });
+    </script>
+</head>
+<body>
+<h1>Upper-Tier Local Authority (UTLA) listing</h1>
+<p>
+    Select your UTLA from the list below to see what its current streak is.
+</p>
+<ul id="areaList"></ul>
+<p>
+    Note: this list is <a href="https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla&structure={'name':'areaName','code':'areaCode'}&latestBy=areaCode">sourced from the COVID-19 API</a>, I'm unsure if it's complete.
+</p>
+</body>
+</html>
