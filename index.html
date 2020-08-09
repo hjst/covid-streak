@@ -3,224 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <title>UK Upper-Tier Local Authority area listing</title>
+    <link rel="stylesheet" href="main.css"/>
 </head>
 <body>
-<h1>Upper-Tier Local Authority (UTLA) listing</h1>
-<p>
-    Select your UTLA from the list below to see what its current streak is.
-</p>
+<section class="utla-list">
+    <h1>Upper-Tier Local Authority (UTLA) listing</h1>
+    <p>
+        Select your UTLA from the list below to see what its current streak is.
+    </p>
 
-<ul id="areaList">
-    <li><a href="./stats.html?area=S12000033">Aberdeen City</a></li>
-    <li><a href="./stats.html?area=S12000034">Aberdeenshire</a></li>
-    <li><a href="./stats.html?area=S12000041">Angus</a></li>
-    <li><a href="./stats.html?area=S12000035">Argyll and Bute</a></li>
-    <li><a href="./stats.html?area=E09000002">Barking and Dagenham</a></li>
-    <li><a href="./stats.html?area=E09000003">Barnet</a></li>
-    <li><a href="./stats.html?area=E08000016">Barnsley</a></li>
-    <li><a href="./stats.html?area=E06000022">Bath and North East Somerset</a></li>
-    <li><a href="./stats.html?area=E06000055">Bedford</a></li>
-    <li><a href="./stats.html?area=E09000004">Bexley</a></li>
-    <li><a href="./stats.html?area=E08000025">Birmingham</a></li>
-    <li><a href="./stats.html?area=E06000008">Blackburn with Darwen</a></li>
-    <li><a href="./stats.html?area=E06000009">Blackpool</a></li>
-    <li><a href="./stats.html?area=W06000019">Blaenau Gwent</a></li>
-    <li><a href="./stats.html?area=E08000001">Bolton</a></li>
-    <li><a href="./stats.html?area=E06000058">Bournemouth, Christchurch and Poole</a></li>
-    <li><a href="./stats.html?area=E06000036">Bracknell Forest</a></li>
-    <li><a href="./stats.html?area=E08000032">Bradford</a></li>
-    <li><a href="./stats.html?area=E09000005">Brent</a></li>
-    <li><a href="./stats.html?area=W06000013">Bridgend</a></li>
-    <li><a href="./stats.html?area=E06000043">Brighton and Hove</a></li>
-    <li><a href="./stats.html?area=E06000023">Bristol, City of</a></li>
-    <li><a href="./stats.html?area=E09000006">Bromley</a></li>
-    <li><a href="./stats.html?area=E10000002">Buckinghamshire</a></li>
-    <li><a href="./stats.html?area=E08000002">Bury</a></li>
-    <li><a href="./stats.html?area=W06000018">Caerphilly</a></li>
-    <li><a href="./stats.html?area=E08000033">Calderdale</a></li>
-    <li><a href="./stats.html?area=E10000003">Cambridgeshire</a></li>
-    <li><a href="./stats.html?area=E09000007">Camden</a></li>
-    <li><a href="./stats.html?area=W06000015">Cardiff</a></li>
-    <li><a href="./stats.html?area=W06000010">Carmarthenshire</a></li>
-    <li><a href="./stats.html?area=E06000056">Central Bedfordshire</a></li>
-    <li><a href="./stats.html?area=W06000008">Ceredigion</a></li>
-    <li><a href="./stats.html?area=E06000049">Cheshire East</a></li>
-    <li><a href="./stats.html?area=E06000050">Cheshire West and Chester</a></li>
-    <li><a href="./stats.html?area=S12000036">City of Edinburgh</a></li>
-    <li><a href="./stats.html?area=S12000005">Clackmannanshire</a></li>
-    <li><a href="./stats.html?area=W06000003">Conwy</a></li>
-    <li><a href="./stats.html?area=E06000052">Cornwall and Isles of Scilly</a></li>
-    <li><a href="./stats.html?area=E06000047">County Durham</a></li>
-    <li><a href="./stats.html?area=E08000026">Coventry</a></li>
-    <li><a href="./stats.html?area=E09000008">Croydon</a></li>
-    <li><a href="./stats.html?area=E10000006">Cumbria</a></li>
-    <li><a href="./stats.html?area=E06000005">Darlington</a></li>
-    <li><a href="./stats.html?area=W06000004">Denbighshire</a></li>
-    <li><a href="./stats.html?area=E06000015">Derby</a></li>
-    <li><a href="./stats.html?area=E10000007">Derbyshire</a></li>
-    <li><a href="./stats.html?area=E10000008">Devon</a></li>
-    <li><a href="./stats.html?area=E08000017">Doncaster</a></li>
-    <li><a href="./stats.html?area=E06000059">Dorset</a></li>
-    <li><a href="./stats.html?area=E08000027">Dudley</a></li>
-    <li><a href="./stats.html?area=S12000006">Dumfries and Galloway</a></li>
-    <li><a href="./stats.html?area=S12000042">Dundee City</a></li>
-    <li><a href="./stats.html?area=E09000009">Ealing</a></li>
-    <li><a href="./stats.html?area=S12000008">East Ayrshire</a></li>
-    <li><a href="./stats.html?area=S12000045">East Dunbartonshire</a></li>
-    <li><a href="./stats.html?area=S12000010">East Lothian</a></li>
-    <li><a href="./stats.html?area=S12000011">East Renfrewshire</a></li>
-    <li><a href="./stats.html?area=E06000011">East Riding of Yorkshire</a></li>
-    <li><a href="./stats.html?area=E10000011">East Sussex</a></li>
-    <li><a href="./stats.html?area=E09000010">Enfield</a></li>
-    <li><a href="./stats.html?area=E10000012">Essex</a></li>
-    <li><a href="./stats.html?area=S12000014">Falkirk</a></li>
-    <li><a href="./stats.html?area=S12000047">Fife</a></li>
-    <li><a href="./stats.html?area=W06000005">Flintshire</a></li>
-    <li><a href="./stats.html?area=E08000037">Gateshead</a></li>
-    <li><a href="./stats.html?area=S12000049">Glasgow City</a></li>
-    <li><a href="./stats.html?area=E10000013">Gloucestershire</a></li>
-    <li><a href="./stats.html?area=E09000011">Greenwich</a></li>
-    <li><a href="./stats.html?area=W06000002">Gwynedd</a></li>
-    <li><a href="./stats.html?area=E09000012">Hackney and City of London</a></li>
-    <li><a href="./stats.html?area=E06000006">Halton</a></li>
-    <li><a href="./stats.html?area=E09000013">Hammersmith and Fulham</a></li>
-    <li><a href="./stats.html?area=E10000014">Hampshire</a></li>
-    <li><a href="./stats.html?area=E09000014">Haringey</a></li>
-    <li><a href="./stats.html?area=E09000015">Harrow</a></li>
-    <li><a href="./stats.html?area=E06000001">Hartlepool</a></li>
-    <li><a href="./stats.html?area=E09000016">Havering</a></li>
-    <li><a href="./stats.html?area=E06000019">Herefordshire, County of</a></li>
-    <li><a href="./stats.html?area=E10000015">Hertfordshire</a></li>
-    <li><a href="./stats.html?area=S12000017">Highland</a></li>
-    <li><a href="./stats.html?area=E09000017">Hillingdon</a></li>
-    <li><a href="./stats.html?area=E09000018">Hounslow</a></li>
-    <li><a href="./stats.html?area=S12000018">Inverclyde</a></li>
-    <li><a href="./stats.html?area=W06000001">Isle of Anglesey</a></li>
-    <li><a href="./stats.html?area=E06000046">Isle of Wight</a></li>
-    <li><a href="./stats.html?area=E09000019">Islington</a></li>
-    <li><a href="./stats.html?area=E09000020">Kensington and Chelsea</a></li>
-    <li><a href="./stats.html?area=E10000016">Kent</a></li>
-    <li><a href="./stats.html?area=E06000010">Kingston upon Hull, City of</a></li>
-    <li><a href="./stats.html?area=E09000021">Kingston upon Thames</a></li>
-    <li><a href="./stats.html?area=E08000034">Kirklees</a></li>
-    <li><a href="./stats.html?area=E08000011">Knowsley</a></li>
-    <li><a href="./stats.html?area=E09000022">Lambeth</a></li>
-    <li><a href="./stats.html?area=E10000017">Lancashire</a></li>
-    <li><a href="./stats.html?area=E08000035">Leeds</a></li>
-    <li><a href="./stats.html?area=E06000016">Leicester</a></li>
-    <li><a href="./stats.html?area=E10000018">Leicestershire</a></li>
-    <li><a href="./stats.html?area=E09000023">Lewisham</a></li>
-    <li><a href="./stats.html?area=E10000019">Lincolnshire</a></li>
-    <li><a href="./stats.html?area=E08000012">Liverpool</a></li>
-    <li><a href="./stats.html?area=E06000032">Luton</a></li>
-    <li><a href="./stats.html?area=E08000003">Manchester</a></li>
-    <li><a href="./stats.html?area=E06000035">Medway</a></li>
-    <li><a href="./stats.html?area=W06000024">Merthyr Tydfil</a></li>
-    <li><a href="./stats.html?area=E09000024">Merton</a></li>
-    <li><a href="./stats.html?area=E06000002">Middlesbrough</a></li>
-    <li><a href="./stats.html?area=S12000019">Midlothian</a></li>
-    <li><a href="./stats.html?area=E06000042">Milton Keynes</a></li>
-    <li><a href="./stats.html?area=W06000021">Monmouthshire</a></li>
-    <li><a href="./stats.html?area=S12000020">Moray</a></li>
-    <li><a href="./stats.html?area=S12000013">Na h-Eileanan Siar</a></li>
-    <li><a href="./stats.html?area=W06000012">Neath Port Talbot</a></li>
-    <li><a href="./stats.html?area=E08000021">Newcastle upon Tyne</a></li>
-    <li><a href="./stats.html?area=E09000025">Newham</a></li>
-    <li><a href="./stats.html?area=W06000022">Newport</a></li>
-    <li><a href="./stats.html?area=E10000020">Norfolk</a></li>
-    <li><a href="./stats.html?area=S12000021">North Ayrshire</a></li>
-    <li><a href="./stats.html?area=E06000012">North East Lincolnshire</a></li>
-    <li><a href="./stats.html?area=S12000050">North Lanarkshire</a></li>
-    <li><a href="./stats.html?area=E06000013">North Lincolnshire</a></li>
-    <li><a href="./stats.html?area=E06000024">North Somerset</a></li>
-    <li><a href="./stats.html?area=E08000022">North Tyneside</a></li>
-    <li><a href="./stats.html?area=E10000023">North Yorkshire</a></li>
-    <li><a href="./stats.html?area=E10000021">Northamptonshire</a></li>
-    <li><a href="./stats.html?area=E06000057">Northumberland</a></li>
-    <li><a href="./stats.html?area=E06000018">Nottingham</a></li>
-    <li><a href="./stats.html?area=E10000024">Nottinghamshire</a></li>
-    <li><a href="./stats.html?area=E08000004">Oldham</a></li>
-    <li><a href="./stats.html?area=S12000023">Orkney Islands</a></li>
-    <li><a href="./stats.html?area=E10000025">Oxfordshire</a></li>
-    <li><a href="./stats.html?area=W06000009">Pembrokeshire</a></li>
-    <li><a href="./stats.html?area=S12000048">Perth and Kinross</a></li>
-    <li><a href="./stats.html?area=E06000031">Peterborough</a></li>
-    <li><a href="./stats.html?area=E06000026">Plymouth</a></li>
-    <li><a href="./stats.html?area=E06000044">Portsmouth</a></li>
-    <li><a href="./stats.html?area=W06000023">Powys</a></li>
-    <li><a href="./stats.html?area=E06000038">Reading</a></li>
-    <li><a href="./stats.html?area=E09000026">Redbridge</a></li>
-    <li><a href="./stats.html?area=E06000003">Redcar and Cleveland</a></li>
-    <li><a href="./stats.html?area=S12000038">Renfrewshire</a></li>
-    <li><a href="./stats.html?area=null">Resident outside Wales</a></li>
-    <li><a href="./stats.html?area=W06000016">Rhondda Cynon Taf</a></li>
-    <li><a href="./stats.html?area=E09000027">Richmond upon Thames</a></li>
-    <li><a href="./stats.html?area=E08000005">Rochdale</a></li>
-    <li><a href="./stats.html?area=E08000018">Rotherham</a></li>
-    <li><a href="./stats.html?area=E06000017">Rutland</a></li>
-    <li><a href="./stats.html?area=E08000006">Salford</a></li>
-    <li><a href="./stats.html?area=E08000028">Sandwell</a></li>
-    <li><a href="./stats.html?area=S12000026">Scottish Borders</a></li>
-    <li><a href="./stats.html?area=E08000014">Sefton</a></li>
-    <li><a href="./stats.html?area=E08000019">Sheffield</a></li>
-    <li><a href="./stats.html?area=S12000027">Shetland Islands</a></li>
-    <li><a href="./stats.html?area=E06000051">Shropshire</a></li>
-    <li><a href="./stats.html?area=E06000039">Slough</a></li>
-    <li><a href="./stats.html?area=E08000029">Solihull</a></li>
-    <li><a href="./stats.html?area=E10000027">Somerset</a></li>
-    <li><a href="./stats.html?area=S12000028">South Ayrshire</a></li>
-    <li><a href="./stats.html?area=E06000025">South Gloucestershire</a></li>
-    <li><a href="./stats.html?area=S12000029">South Lanarkshire</a></li>
-    <li><a href="./stats.html?area=E08000023">South Tyneside</a></li>
-    <li><a href="./stats.html?area=E06000045">Southampton</a></li>
-    <li><a href="./stats.html?area=E06000033">Southend-on-Sea</a></li>
-    <li><a href="./stats.html?area=E09000028">Southwark</a></li>
-    <li><a href="./stats.html?area=E08000013">St. Helens</a></li>
-    <li><a href="./stats.html?area=E10000028">Staffordshire</a></li>
-    <li><a href="./stats.html?area=S12000030">Stirling</a></li>
-    <li><a href="./stats.html?area=E08000007">Stockport</a></li>
-    <li><a href="./stats.html?area=E06000004">Stockton-on-Tees</a></li>
-    <li><a href="./stats.html?area=E06000021">Stoke-on-Trent</a></li>
-    <li><a href="./stats.html?area=E10000029">Suffolk</a></li>
-    <li><a href="./stats.html?area=E08000024">Sunderland</a></li>
-    <li><a href="./stats.html?area=E10000030">Surrey</a></li>
-    <li><a href="./stats.html?area=E09000029">Sutton</a></li>
-    <li><a href="./stats.html?area=W06000011">Swansea</a></li>
-    <li><a href="./stats.html?area=E06000030">Swindon</a></li>
-    <li><a href="./stats.html?area=E08000008">Tameside</a></li>
-    <li><a href="./stats.html?area=E06000020">Telford and Wrekin</a></li>
-    <li><a href="./stats.html?area=E06000034">Thurrock</a></li>
-    <li><a href="./stats.html?area=E06000027">Torbay</a></li>
-    <li><a href="./stats.html?area=W06000020">Torfaen</a></li>
-    <li><a href="./stats.html?area=E09000030">Tower Hamlets</a></li>
-    <li><a href="./stats.html?area=E08000009">Trafford</a></li>
-    <li><a href="./stats.html?area=W06000014">Vale of Glamorgan</a></li>
-    <li><a href="./stats.html?area=E08000036">Wakefield</a></li>
-    <li><a href="./stats.html?area=E08000030">Walsall</a></li>
-    <li><a href="./stats.html?area=E09000031">Waltham Forest</a></li>
-    <li><a href="./stats.html?area=E09000032">Wandsworth</a></li>
-    <li><a href="./stats.html?area=E06000007">Warrington</a></li>
-    <li><a href="./stats.html?area=E10000031">Warwickshire</a></li>
-    <li><a href="./stats.html?area=E06000037">West Berkshire</a></li>
-    <li><a href="./stats.html?area=S12000039">West Dunbartonshire</a></li>
-    <li><a href="./stats.html?area=S12000040">West Lothian</a></li>
-    <li><a href="./stats.html?area=E10000032">West Sussex</a></li>
-    <li><a href="./stats.html?area=E09000033">Westminster</a></li>
-    <li><a href="./stats.html?area=E08000010">Wigan</a></li>
-    <li><a href="./stats.html?area=E06000054">Wiltshire</a></li>
-    <li><a href="./stats.html?area=E06000040">Windsor and Maidenhead</a></li>
-    <li><a href="./stats.html?area=E08000015">Wirral</a></li>
-    <li><a href="./stats.html?area=E06000041">Wokingham</a></li>
-    <li><a href="./stats.html?area=E08000031">Wolverhampton</a></li>
-    <li><a href="./stats.html?area=E10000034">Worcestershire</a></li>
-    <li><a href="./stats.html?area=W06000006">Wrexham</a></li>
-    <li><a href="./stats.html?area=E06000014">York</a></li>
-</ul>
+    <ul id="areaList">
+        <li><a href="./stats.html?area=S12000033">Aberdeen City</a></li>
+        <li><a href="./stats.html?area=S12000034">Aberdeenshire</a></li>
+        <li><a href="./stats.html?area=S12000041">Angus</a></li>
+        <li><a href="./stats.html?area=S12000035">Argyll and Bute</a></li>
+        <li><a href="./stats.html?area=E09000002">Barking and Dagenham</a></li>
+        <li><a href="./stats.html?area=E09000003">Barnet</a></li>
+        <li><a href="./stats.html?area=E08000016">Barnsley</a></li>
+        <li><a href="./stats.html?area=E06000022">Bath and North East Somerset</a></li>
+        <li><a href="./stats.html?area=E06000055">Bedford</a></li>
+        <li><a href="./stats.html?area=E09000004">Bexley</a></li>
+        <li><a href="./stats.html?area=E08000025">Birmingham</a></li>
+        <li><a href="./stats.html?area=E06000008">Blackburn with Darwen</a></li>
+        <li><a href="./stats.html?area=E06000009">Blackpool</a></li>
+        <li><a href="./stats.html?area=W06000019">Blaenau Gwent</a></li>
+        <li><a href="./stats.html?area=E08000001">Bolton</a></li>
+        <li><a href="./stats.html?area=E06000058">Bournemouth, Christchurch and Poole</a></li>
+        <li><a href="./stats.html?area=E06000036">Bracknell Forest</a></li>
+        <li><a href="./stats.html?area=E08000032">Bradford</a></li>
+        <li><a href="./stats.html?area=E09000005">Brent</a></li>
+        <li><a href="./stats.html?area=W06000013">Bridgend</a></li>
+        <li><a href="./stats.html?area=E06000043">Brighton and Hove</a></li>
+        <li><a href="./stats.html?area=E06000023">Bristol, City of</a></li>
+        <li><a href="./stats.html?area=E09000006">Bromley</a></li>
+        <li><a href="./stats.html?area=E10000002">Buckinghamshire</a></li>
+        <li><a href="./stats.html?area=E08000002">Bury</a></li>
+        <li><a href="./stats.html?area=W06000018">Caerphilly</a></li>
+        <li><a href="./stats.html?area=E08000033">Calderdale</a></li>
+        <li><a href="./stats.html?area=E10000003">Cambridgeshire</a></li>
+        <li><a href="./stats.html?area=E09000007">Camden</a></li>
+        <li><a href="./stats.html?area=W06000015">Cardiff</a></li>
+        <li><a href="./stats.html?area=W06000010">Carmarthenshire</a></li>
+        <li><a href="./stats.html?area=E06000056">Central Bedfordshire</a></li>
+        <li><a href="./stats.html?area=W06000008">Ceredigion</a></li>
+        <li><a href="./stats.html?area=E06000049">Cheshire East</a></li>
+        <li><a href="./stats.html?area=E06000050">Cheshire West and Chester</a></li>
+        <li><a href="./stats.html?area=S12000036">City of Edinburgh</a></li>
+        <li><a href="./stats.html?area=S12000005">Clackmannanshire</a></li>
+        <li><a href="./stats.html?area=W06000003">Conwy</a></li>
+        <li><a href="./stats.html?area=E06000052">Cornwall and Isles of Scilly</a></li>
+        <li><a href="./stats.html?area=E06000047">County Durham</a></li>
+        <li><a href="./stats.html?area=E08000026">Coventry</a></li>
+        <li><a href="./stats.html?area=E09000008">Croydon</a></li>
+        <li><a href="./stats.html?area=E10000006">Cumbria</a></li>
+        <li><a href="./stats.html?area=E06000005">Darlington</a></li>
+        <li><a href="./stats.html?area=W06000004">Denbighshire</a></li>
+        <li><a href="./stats.html?area=E06000015">Derby</a></li>
+        <li><a href="./stats.html?area=E10000007">Derbyshire</a></li>
+        <li><a href="./stats.html?area=E10000008">Devon</a></li>
+        <li><a href="./stats.html?area=E08000017">Doncaster</a></li>
+        <li><a href="./stats.html?area=E06000059">Dorset</a></li>
+        <li><a href="./stats.html?area=E08000027">Dudley</a></li>
+        <li><a href="./stats.html?area=S12000006">Dumfries and Galloway</a></li>
+        <li><a href="./stats.html?area=S12000042">Dundee City</a></li>
+        <li><a href="./stats.html?area=E09000009">Ealing</a></li>
+        <li><a href="./stats.html?area=S12000008">East Ayrshire</a></li>
+        <li><a href="./stats.html?area=S12000045">East Dunbartonshire</a></li>
+        <li><a href="./stats.html?area=S12000010">East Lothian</a></li>
+        <li><a href="./stats.html?area=S12000011">East Renfrewshire</a></li>
+        <li><a href="./stats.html?area=E06000011">East Riding of Yorkshire</a></li>
+        <li><a href="./stats.html?area=E10000011">East Sussex</a></li>
+        <li><a href="./stats.html?area=E09000010">Enfield</a></li>
+        <li><a href="./stats.html?area=E10000012">Essex</a></li>
+        <li><a href="./stats.html?area=S12000014">Falkirk</a></li>
+        <li><a href="./stats.html?area=S12000047">Fife</a></li>
+        <li><a href="./stats.html?area=W06000005">Flintshire</a></li>
+        <li><a href="./stats.html?area=E08000037">Gateshead</a></li>
+        <li><a href="./stats.html?area=S12000049">Glasgow City</a></li>
+        <li><a href="./stats.html?area=E10000013">Gloucestershire</a></li>
+        <li><a href="./stats.html?area=E09000011">Greenwich</a></li>
+        <li><a href="./stats.html?area=W06000002">Gwynedd</a></li>
+        <li><a href="./stats.html?area=E09000012">Hackney and City of London</a></li>
+        <li><a href="./stats.html?area=E06000006">Halton</a></li>
+        <li><a href="./stats.html?area=E09000013">Hammersmith and Fulham</a></li>
+        <li><a href="./stats.html?area=E10000014">Hampshire</a></li>
+        <li><a href="./stats.html?area=E09000014">Haringey</a></li>
+        <li><a href="./stats.html?area=E09000015">Harrow</a></li>
+        <li><a href="./stats.html?area=E06000001">Hartlepool</a></li>
+        <li><a href="./stats.html?area=E09000016">Havering</a></li>
+        <li><a href="./stats.html?area=E06000019">Herefordshire, County of</a></li>
+        <li><a href="./stats.html?area=E10000015">Hertfordshire</a></li>
+        <li><a href="./stats.html?area=S12000017">Highland</a></li>
+        <li><a href="./stats.html?area=E09000017">Hillingdon</a></li>
+        <li><a href="./stats.html?area=E09000018">Hounslow</a></li>
+        <li><a href="./stats.html?area=S12000018">Inverclyde</a></li>
+        <li><a href="./stats.html?area=W06000001">Isle of Anglesey</a></li>
+        <li><a href="./stats.html?area=E06000046">Isle of Wight</a></li>
+        <li><a href="./stats.html?area=E09000019">Islington</a></li>
+        <li><a href="./stats.html?area=E09000020">Kensington and Chelsea</a></li>
+        <li><a href="./stats.html?area=E10000016">Kent</a></li>
+        <li><a href="./stats.html?area=E06000010">Kingston upon Hull, City of</a></li>
+        <li><a href="./stats.html?area=E09000021">Kingston upon Thames</a></li>
+        <li><a href="./stats.html?area=E08000034">Kirklees</a></li>
+        <li><a href="./stats.html?area=E08000011">Knowsley</a></li>
+        <li><a href="./stats.html?area=E09000022">Lambeth</a></li>
+        <li><a href="./stats.html?area=E10000017">Lancashire</a></li>
+        <li><a href="./stats.html?area=E08000035">Leeds</a></li>
+        <li><a href="./stats.html?area=E06000016">Leicester</a></li>
+        <li><a href="./stats.html?area=E10000018">Leicestershire</a></li>
+        <li><a href="./stats.html?area=E09000023">Lewisham</a></li>
+        <li><a href="./stats.html?area=E10000019">Lincolnshire</a></li>
+        <li><a href="./stats.html?area=E08000012">Liverpool</a></li>
+        <li><a href="./stats.html?area=E06000032">Luton</a></li>
+        <li><a href="./stats.html?area=E08000003">Manchester</a></li>
+        <li><a href="./stats.html?area=E06000035">Medway</a></li>
+        <li><a href="./stats.html?area=W06000024">Merthyr Tydfil</a></li>
+        <li><a href="./stats.html?area=E09000024">Merton</a></li>
+        <li><a href="./stats.html?area=E06000002">Middlesbrough</a></li>
+        <li><a href="./stats.html?area=S12000019">Midlothian</a></li>
+        <li><a href="./stats.html?area=E06000042">Milton Keynes</a></li>
+        <li><a href="./stats.html?area=W06000021">Monmouthshire</a></li>
+        <li><a href="./stats.html?area=S12000020">Moray</a></li>
+        <li><a href="./stats.html?area=S12000013">Na h-Eileanan Siar</a></li>
+        <li><a href="./stats.html?area=W06000012">Neath Port Talbot</a></li>
+        <li><a href="./stats.html?area=E08000021">Newcastle upon Tyne</a></li>
+        <li><a href="./stats.html?area=E09000025">Newham</a></li>
+        <li><a href="./stats.html?area=W06000022">Newport</a></li>
+        <li><a href="./stats.html?area=E10000020">Norfolk</a></li>
+        <li><a href="./stats.html?area=S12000021">North Ayrshire</a></li>
+        <li><a href="./stats.html?area=E06000012">North East Lincolnshire</a></li>
+        <li><a href="./stats.html?area=S12000050">North Lanarkshire</a></li>
+        <li><a href="./stats.html?area=E06000013">North Lincolnshire</a></li>
+        <li><a href="./stats.html?area=E06000024">North Somerset</a></li>
+        <li><a href="./stats.html?area=E08000022">North Tyneside</a></li>
+        <li><a href="./stats.html?area=E10000023">North Yorkshire</a></li>
+        <li><a href="./stats.html?area=E10000021">Northamptonshire</a></li>
+        <li><a href="./stats.html?area=E06000057">Northumberland</a></li>
+        <li><a href="./stats.html?area=E06000018">Nottingham</a></li>
+        <li><a href="./stats.html?area=E10000024">Nottinghamshire</a></li>
+        <li><a href="./stats.html?area=E08000004">Oldham</a></li>
+        <li><a href="./stats.html?area=S12000023">Orkney Islands</a></li>
+        <li><a href="./stats.html?area=E10000025">Oxfordshire</a></li>
+        <li><a href="./stats.html?area=W06000009">Pembrokeshire</a></li>
+        <li><a href="./stats.html?area=S12000048">Perth and Kinross</a></li>
+        <li><a href="./stats.html?area=E06000031">Peterborough</a></li>
+        <li><a href="./stats.html?area=E06000026">Plymouth</a></li>
+        <li><a href="./stats.html?area=E06000044">Portsmouth</a></li>
+        <li><a href="./stats.html?area=W06000023">Powys</a></li>
+        <li><a href="./stats.html?area=E06000038">Reading</a></li>
+        <li><a href="./stats.html?area=E09000026">Redbridge</a></li>
+        <li><a href="./stats.html?area=E06000003">Redcar and Cleveland</a></li>
+        <li><a href="./stats.html?area=S12000038">Renfrewshire</a></li>
+        <li><a href="./stats.html?area=null">Resident outside Wales</a></li>
+        <li><a href="./stats.html?area=W06000016">Rhondda Cynon Taf</a></li>
+        <li><a href="./stats.html?area=E09000027">Richmond upon Thames</a></li>
+        <li><a href="./stats.html?area=E08000005">Rochdale</a></li>
+        <li><a href="./stats.html?area=E08000018">Rotherham</a></li>
+        <li><a href="./stats.html?area=E06000017">Rutland</a></li>
+        <li><a href="./stats.html?area=E08000006">Salford</a></li>
+        <li><a href="./stats.html?area=E08000028">Sandwell</a></li>
+        <li><a href="./stats.html?area=S12000026">Scottish Borders</a></li>
+        <li><a href="./stats.html?area=E08000014">Sefton</a></li>
+        <li><a href="./stats.html?area=E08000019">Sheffield</a></li>
+        <li><a href="./stats.html?area=S12000027">Shetland Islands</a></li>
+        <li><a href="./stats.html?area=E06000051">Shropshire</a></li>
+        <li><a href="./stats.html?area=E06000039">Slough</a></li>
+        <li><a href="./stats.html?area=E08000029">Solihull</a></li>
+        <li><a href="./stats.html?area=E10000027">Somerset</a></li>
+        <li><a href="./stats.html?area=S12000028">South Ayrshire</a></li>
+        <li><a href="./stats.html?area=E06000025">South Gloucestershire</a></li>
+        <li><a href="./stats.html?area=S12000029">South Lanarkshire</a></li>
+        <li><a href="./stats.html?area=E08000023">South Tyneside</a></li>
+        <li><a href="./stats.html?area=E06000045">Southampton</a></li>
+        <li><a href="./stats.html?area=E06000033">Southend-on-Sea</a></li>
+        <li><a href="./stats.html?area=E09000028">Southwark</a></li>
+        <li><a href="./stats.html?area=E08000013">St. Helens</a></li>
+        <li><a href="./stats.html?area=E10000028">Staffordshire</a></li>
+        <li><a href="./stats.html?area=S12000030">Stirling</a></li>
+        <li><a href="./stats.html?area=E08000007">Stockport</a></li>
+        <li><a href="./stats.html?area=E06000004">Stockton-on-Tees</a></li>
+        <li><a href="./stats.html?area=E06000021">Stoke-on-Trent</a></li>
+        <li><a href="./stats.html?area=E10000029">Suffolk</a></li>
+        <li><a href="./stats.html?area=E08000024">Sunderland</a></li>
+        <li><a href="./stats.html?area=E10000030">Surrey</a></li>
+        <li><a href="./stats.html?area=E09000029">Sutton</a></li>
+        <li><a href="./stats.html?area=W06000011">Swansea</a></li>
+        <li><a href="./stats.html?area=E06000030">Swindon</a></li>
+        <li><a href="./stats.html?area=E08000008">Tameside</a></li>
+        <li><a href="./stats.html?area=E06000020">Telford and Wrekin</a></li>
+        <li><a href="./stats.html?area=E06000034">Thurrock</a></li>
+        <li><a href="./stats.html?area=E06000027">Torbay</a></li>
+        <li><a href="./stats.html?area=W06000020">Torfaen</a></li>
+        <li><a href="./stats.html?area=E09000030">Tower Hamlets</a></li>
+        <li><a href="./stats.html?area=E08000009">Trafford</a></li>
+        <li><a href="./stats.html?area=W06000014">Vale of Glamorgan</a></li>
+        <li><a href="./stats.html?area=E08000036">Wakefield</a></li>
+        <li><a href="./stats.html?area=E08000030">Walsall</a></li>
+        <li><a href="./stats.html?area=E09000031">Waltham Forest</a></li>
+        <li><a href="./stats.html?area=E09000032">Wandsworth</a></li>
+        <li><a href="./stats.html?area=E06000007">Warrington</a></li>
+        <li><a href="./stats.html?area=E10000031">Warwickshire</a></li>
+        <li><a href="./stats.html?area=E06000037">West Berkshire</a></li>
+        <li><a href="./stats.html?area=S12000039">West Dunbartonshire</a></li>
+        <li><a href="./stats.html?area=S12000040">West Lothian</a></li>
+        <li><a href="./stats.html?area=E10000032">West Sussex</a></li>
+        <li><a href="./stats.html?area=E09000033">Westminster</a></li>
+        <li><a href="./stats.html?area=E08000010">Wigan</a></li>
+        <li><a href="./stats.html?area=E06000054">Wiltshire</a></li>
+        <li><a href="./stats.html?area=E06000040">Windsor and Maidenhead</a></li>
+        <li><a href="./stats.html?area=E08000015">Wirral</a></li>
+        <li><a href="./stats.html?area=E06000041">Wokingham</a></li>
+        <li><a href="./stats.html?area=E08000031">Wolverhampton</a></li>
+        <li><a href="./stats.html?area=E10000034">Worcestershire</a></li>
+        <li><a href="./stats.html?area=W06000006">Wrexham</a></li>
+        <li><a href="./stats.html?area=E06000014">York</a></li>
+    </ul>
 
-<p>
-    Note: this list is <a
-        href="https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla&structure={'name':'areaName','code':'areaCode'}&latestBy=areaCode">sourced
-    from the COVID-19 API</a>, I am unsure if it's complete.
-</p>
+    <p>
+        Note: this list is <a
+            href="https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla&structure={'name':'areaName','code':'areaCode'}&latestBy=areaCode">sourced
+        from the COVID-19 API</a>, I am unsure if it's complete.
+    </p>
+</section>
 </body>
 </html>
