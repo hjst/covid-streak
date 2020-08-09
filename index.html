@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Days since</title>
+    <script lang="JavaScript">
+        const areaType = "utla";
+        const areaCode = "E06000019"
+        const responseStructure = {
+            "date": "date",
+            // "name": "areaName",
+            // "code": "areaCode",
+            "newCases": "newCasesBySpecimenDate"
+        };
+        const query_url = `https://api.coronavirus.data.gov.uk/v1/data`
+            + `?filters=areaType=${areaType};areaCode=${areaCode}`
+            + `&structure=${JSON.stringify(responseStructure)}`
+            // + `&latestBy=newCasesByPublishDate`
+
+        function count_days_since(days_arr) {
+            // Assumes array comes in reverse date order, most recent day being yesterday
+            console.log(days_arr);
+            let days_since = 1;
+            for (; days_since-1 < days_arr.length; days_since++) {
+                if (days_arr[days_since-1].newCases > 0) {
+                    break;
+                }
+            }
+            console.log(`days_since: ${days_since}`);
+            return days_since;
+        }
+        fetch(query_url)
+            .then(response => response.json())
+            .then(payload => {
+                const days_since = count_days_since(payload.data);
+                document.getElementById("daysSince").innerText = `${days_since}`;
+            });
+        
+    </script>
+</head>
+<body>
+<h1>Days since Hereford had a confirmed case: <span id="daysSince">0</span></h1>
+</body>
+</html>
