@@ -52,6 +52,10 @@ li {
 p.data-source {
     font-size: 70%;
 }
+p.nav {
+    font-size: 90%;
+    padding-top: 2em;
+}
 @media screen and (prefers-color-scheme: dark) {
     body {
         background-color: #555;
