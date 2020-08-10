@@ -60,6 +60,27 @@
             return streaks;
         }
 
+        function get_history_visual(days) {
+            const visual = document.createElement('p');
+            days.reverse().forEach(day => {
+                const dayBlock = document.createElement('span');
+                // dayBlock.innerHTML = '&#x2588; ';
+                dayBlock.innerHTML = '<svg width="20px" height="20px" viewBox="1 1 20 20"><rect width="18px" height="18px" /></svg>';
+                dayBlock.setAttribute('title', `${day.date}, confirmed cases: ${day.newCases}`);
+                if (day.newCases === 0) {
+                    dayBlock.className = 'streak';
+                } else if (day.newCases < 10) {
+                    dayBlock.className = 'low';
+                } else if (day.newCases < 20) {
+                    dayBlock.className = 'mid';
+                } else {
+                    dayBlock.className = 'high';
+                }
+                visual.append(dayBlock)
+            });
+            return visual;
+        }
+
         // TODO: handle HTTP errors https://coronavirus.data.gov.uk/developers-guide#get-responses
         fetch(query_url)
             .then(response => response.json())
@@ -82,6 +103,9 @@
                 } else {
                     document.getElementById("streak").innerText = "none found 😢";
                 }
+                document.getElementById("visualisation").insertAdjacentElement(
+                    'beforeend', get_history_visual(payload.data)
+                );
             });
     </script>
     <link rel="stylesheet" href="main.css"/>
@@ -105,6 +129,7 @@
         (metric: <code>newCasesBySpecimenDate</code>,
         <a href="https://coronavirus.data.gov.uk/about-data#daily-and-cumulative-numbers-of-cases">see docs</a>)
     </p>
+    <div id="visualisation"></div>
 </div>
 </body>
 </html>

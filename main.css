@@ -29,12 +29,16 @@ p.previous-streak {
 }
 div.stats {
     padding: 1em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    max-width: 30em;
 }
+#visualisation p { line-height: 0 } /* squish the SVG lines */
+span.streak svg { fill: #ccc; }
+span.low    svg { fill: rgba(170,25,25,0.35) }
+span.mid    svg { fill: rgba(170,0,0,0.6) }
+span.high   svg { fill: rgba(170,0,0,1) }
 div.utla-list {
     padding: 1em;
     max-width: 35em;
@@ -56,4 +60,8 @@ p.data-source {
     a, a:hover, a:visited, a:active {
         color: #eee;
     }
+    span.streak svg { fill: #666; }
+    span.low    svg { fill: rgba(200,100,100,0.3) }
+    span.mid    svg { fill: rgba(150,50,50,0.5) }
+    span.high   svg { fill: rgba(125,25,25,0.7) }
 }
