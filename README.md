@@ -1,4 +1,4 @@
-# COVID-19 streak
+# COVID-19 streak (work in progress)
 
 <blockquote><p><b>6. b.</b> A temporary run (of luck). In phrase: <b><i>(on) a losing (or winning) streak</i></b>, (experiencing) a series of losses (or wins). Hence, a series (of games, etc.) of a specified kind.</p><footer>— <cite>Oxford English Dictionary, 2nd Edition</cite></footer></blockquote>
 
