@@ -20,8 +20,13 @@
         function count_days_since(days) {
             // Assumes array comes in reverse date order, most recent day first
             const now = new Date();
-            const since = new Date(days.find(day => day.newCases > 0).date);
-            return Math.floor((now - since) / 1000 / 60 / 60 / 24);
+            let last_known_case = days.find(day => day.newCases > 0);
+            if (!last_known_case) {
+                last_known_case = days[days.length-1]; // earliest known day
+                // TODO: better handling of no known cases
+                return `${Math.floor((now - new Date(last_known_case.date)) / 1000 / 60 / 60 / 24)}+`;
+            }
+            return Math.floor((now - new Date(last_known_case.date)) / 1000 / 60 / 60 / 24);
         }
 
         function tidy_name(name) {
@@ -65,13 +70,17 @@
                 document.title += `: ${tidy_name(payload.data[0].areaName)}`;
                 const streak = find_streaks(payload.data.reverse()).reduce(
                     (prev, curr) => (prev.numDays > curr.numDays) ? prev : curr, {});
-                if (streak) {
+                if (!!streak.start && !!streak.end) {
                     document.getElementById("streak")
-                        .innerText=`${streak.numDays} `
+                        .innerText = `${streak.numDays} `
                         + `${(streak.numDays === 1) ? 'day ' : 'days '}`
                         + `(from ${streak.start} to ${streak.end})`;
+                } else if (!! streak.start && !streak.end) {
+                        streak.numDays = count_days_since(payload.data);
+                        document.getElementById("streak")
+                            .innerText=`this one!`;
                 } else {
-                    document.getElementById("streak").innerText = "None 😢";
+                    document.getElementById("streak").innerText = "none found 😢";
                 }
             });
     </script>
