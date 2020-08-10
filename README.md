@@ -6,6 +6,8 @@
 
 Web page that fetches the latest UK data on new COVID-19 cases per day for an area, and displays how many days it has been since the last confirmed case.
 
+<img src="screenshot.png" width="299" alt="Screenshot showing the stats view for Herefordshire">
+
 ## Why?
 
 I was wondering how many new cases were being diagnosed in my city per day, and if we were on a "winning streak".
