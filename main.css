@@ -41,6 +41,10 @@ div.utla-list {
     margin-left: auto;
     margin-right: auto;
 }
+li {
+    padding-bottom: 0.2em;
+    padding-top: 0.2em;
+}
 p.data-source {
     font-size: 70%;
 }
