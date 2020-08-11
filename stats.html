@@ -19,6 +19,10 @@
             + `?filters=areaType=${areaType};areaCode=${areaCode}`
             + `&structure=${JSON.stringify(responseStructure)}`;
 
+        function days_diff(start, end) {
+            return Math.floor((end - start) / 1000 / 60 / 60 / 24);
+        }
+
         function count_days_since(days) {
             // Assumes array comes in reverse date order, most recent day first
             const now = new Date();
@@ -26,9 +30,9 @@
             if (!last_known_case) {
                 last_known_case = days[days.length-1]; // earliest known day
                 // TODO: better handling of no known cases
-                return `${Math.floor((now - new Date(last_known_case.date)) / 1000 / 60 / 60 / 24)}+`;
+                return `${days_diff(new Date(last_known_case.date), now)}+`;
             }
-            return Math.floor((now - new Date(last_known_case.date)) / 1000 / 60 / 60 / 24);
+            return days_diff(new Date(last_known_case.date), now);
         }
 
         function tidy_name(name) {
@@ -63,14 +67,29 @@
         }
 
         function get_history_visual(days) {
+            days.reverse(); // assumes days is in ascending order, earliest first
+            missing_days = days_diff(new Date(days[0].date), new Date());
+            console.log(missing_days);
+            for (let index=0; index < missing_days; index++) {
+                console.debug(index, missing_days);
+                if (index === missing_days-1) {
+                    days.unshift({date:"Today", newCases:"Unknown", class:"today"})
+                } else {
+                    days.unshift({date:"Day with no data", newCases:"Unknown", class:"unknown"});
+                }
+            }
+            console.log(days);
+
             const visual = document.createElement('p');
-            days.reverse().forEach(day => {
+            days.forEach(day => {
                 const dayBlock = document.createElement('span');
                 // dayBlock.innerHTML = '&#x2588; ';
                 dayBlock.innerHTML = '<svg width="20px" height="20px" viewBox="1 1 20 20"><rect width="18px" height="18px" /></svg>';
                 dayBlock.setAttribute('title', `${day.date}, confirmed cases: ${day.newCases}`);
                 if (day.newCases === 0) {
                     dayBlock.className = 'streak';
+                } else if (day.class) {
+                    dayBlock.className = day.class;
                 } else if (day.newCases < 10) {
                     dayBlock.className = 'low';
                 } else if (day.newCases < 20) {
