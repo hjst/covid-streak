@@ -35,9 +35,18 @@ div.stats {
     max-width: 30em;
 }
 #visualisation p { line-height: 0 } /* squish the SVG lines */
+@keyframes blinktoday {
+    100%,
+    0% {
+        fill: rgba(25,170,170,0.6);
+    }
+    50% {
+        fill: rgba(25,170,170,0.35);
+    }
+}
 span.streak  svg { fill: #ccc; }
 span.unknown svg { fill: #ccc; }
-span.today   svg { fill: rgba(25,170,170,0.7) }
+span.today   svg { animation: blinktoday 2s infinite; }
 span.low     svg { fill: rgba(170,25,25,0.35) }
 span.mid     svg { fill: rgba(170,0,0,0.6) }
 span.high    svg { fill: rgba(170,0,0,1) }
