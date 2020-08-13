@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="siteicon.png">
     <link rel="icon" href="siteicon.png" sizes="180x180" type="image/png">
-    <title>Current COVID-19 streak</title>
+    <title>COVID-19: is your area on a winning streak?</title>
+    <meta property="og:title" content="COVID-19: is your area on a winning streak?">
+    <meta property="og:description" content="Use the daily GOV.UK data to see how long your city/county/borough has gone without a confirmed case. Compare with historical data to see how you're doing over time.">
+    <meta property="og:image" content="share-image-streak.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@hjst">
+    <link rel="stylesheet" href="main.css"/>
     <script lang="JavaScript">
         const params = new URLSearchParams(window.location.search);
         const areaType = "utla";
@@ -140,7 +146,7 @@
                 document.getElementById("dataSource").href = query_url;
                 document.getElementById("daysSince").innerText = `${count_days_since(payload.data)}`;
                 document.getElementById("areaName").innerText = tidy_name(payload.data[0].areaName);
-                document.title += `: ${tidy_name(payload.data[0].areaName)}`;
+                document.title = `COVID: ${tidy_name(payload.data[0].areaName)}`; // for bookmarks
                 const streak = find_streaks([...payload.data].reverse()).reduce(
                     // we reverse here so that if there are multiple matches we get the most recent
                     (prev, curr) => (prev.numDays > curr.numDays) ? prev : curr, {});
