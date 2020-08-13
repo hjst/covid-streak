@@ -1,6 +1,7 @@
 # COVID-19 streak (work in progress)
 
-<blockquote><p><b>6. b.</b> A temporary run (of luck). In phrase: <b><i>(on) a losing (or winning) streak</i></b>, (experiencing) a series of losses (or wins). Hence, a series (of games, etc.) of a specified kind.</p><footer>— <cite>Oxford English Dictionary, 2nd Edition</cite></footer></blockquote>
+_Please note:_ Currently Scottish UTLAs aren't supported as historic data isn't available.
+I'd also like to add support for more visualisations and different geographic sub-divisions, when time allows.
 
 ## What?
 
