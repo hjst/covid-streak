@@ -67,7 +67,6 @@
         }
 
         function get_history_visual(days) {
-            days.reverse(); // assumes days is in ascending order, earliest first
             const most_recent_day = days[0].date;
             const missing_days = days_diff(new Date(most_recent_day), new Date());
             for (let index=1; index <= missing_days; index++) {
@@ -113,17 +112,19 @@
                 document.getElementById("daysSince").innerText = `${count_days_since(payload.data)}`;
                 document.getElementById("areaName").innerText = tidy_name(payload.data[0].areaName);
                 document.title += `: ${tidy_name(payload.data[0].areaName)}`;
-                const streak = find_streaks(payload.data.reverse()).reduce(
+                const streak = find_streaks([...payload.data].reverse()).reduce(
+                    // we reverse here so that if there are multiple matches we get the most recent
                     (prev, curr) => (prev.numDays > curr.numDays) ? prev : curr, {});
-                if (!!streak.start && !!streak.end) {
+                if ((!!streak.start && !streak.end) ||
+                    ((!!streak.start && !!streak.end) && streak.numDays <= count_days_since(payload.data))) {
+                        streak.numDays = count_days_since(payload.data);
+                        document.getElementById("streak")
+                            .innerText=`this one!`;
+                } else if (!!streak.start && !!streak.end) {
                     document.getElementById("streak")
                         .innerText = `${streak.numDays} `
                         + `${(streak.numDays === 1) ? 'day ' : 'days '}`
                         + `(from ${streak.start} to ${streak.end})`;
-                } else if (!! streak.start && !streak.end) {
-                        streak.numDays = count_days_since(payload.data);
-                        document.getElementById("streak")
-                            .innerText=`this one!`;
                 } else {
                     document.getElementById("streak").innerText = "none found 😢";
                 }
