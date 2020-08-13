@@ -65,7 +65,11 @@ li {
     padding-bottom: 0.2em;
     padding-top: 0.2em;
 }
-p.data-source {
+ul.data-source {
+    list-style-type: none;
+    padding-left: 0;
+}
+ul.data-source li {
     font-size: 70%;
 }
 p.nav {
