@@ -38,10 +38,10 @@ div.stats {
 @keyframes blinktoday {
     100%,
     0% {
-        fill: rgba(25,170,170,0.6);
+        fill: transparent;
     }
     50% {
-        fill: rgba(25,170,170,0.35);
+        fill: #ccc;
     }
 }
 span.streak  svg { fill: #ccc; }
@@ -75,9 +75,17 @@ p.nav {
     a, a:hover, a:visited, a:active {
         color: #eee;
     }
+    @keyframes blinktoday {
+        100%,
+        0% {
+            fill: transparent;
+        }
+        50% {
+            fill: #666;
+        }
+    }
     span.streak  svg { fill: #666; }
     span.unknown svg { fill: #666; }
-    span.today   svg { fill: rgba(25,170,170,0.7) }
     span.low     svg { fill: rgba(200,100,100,0.3) }
     span.mid     svg { fill: rgba(150,50,50,0.5) }
     span.high    svg { fill: rgba(125,25,25,0.7) }

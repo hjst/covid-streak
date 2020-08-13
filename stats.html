@@ -68,14 +68,17 @@
 
         function get_history_visual(days) {
             days.reverse(); // assumes days is in ascending order, earliest first
-            missing_days = days_diff(new Date(days[0].date), new Date());
-            console.log(missing_days);
-            for (let index=0; index < missing_days; index++) {
+            const most_recent_day = days[0].date;
+            const missing_days = days_diff(new Date(most_recent_day), new Date());
+            for (let index=1; index <= missing_days; index++) {
+                console.debug('index', index, 'missing_days', missing_days)
                 console.debug(index, missing_days);
-                if (index === missing_days-1) {
-                    days.unshift({date:"Today", newCases:"Unknown", class:"today"})
+                if (index === missing_days) {
+                    days.unshift({date:"Today", newCases:"no data", class:"today"})
                 } else {
-                    days.unshift({date:"Day with no data", newCases:"Unknown", class:"unknown"});
+                    const missing_date = new Date(most_recent_day);
+                    missing_date.setDate(missing_date.getDate() + index);
+                    days.unshift({date:missing_date.toISOString().split('T')[0], newCases:"no data", class:"unknown"});
                 }
             }
             console.log(days);
