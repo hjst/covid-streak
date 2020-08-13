@@ -19,8 +19,8 @@
             + `?filters=areaType=${areaType};areaCode=${areaCode}`
             + `&structure=${JSON.stringify(responseStructure)}`;
 
-        function days_diff(start, end) {
-            return Math.floor((end - start) / 1000 / 60 / 60 / 24);
+        function days_diff(start, finish) {
+            return Math.floor((finish - start) / 1000 / 60 / 60 / 24);
         }
 
         function count_days_since(days) {
@@ -28,11 +28,39 @@
             const now = new Date();
             let last_known_case = days.find(day => day.newCases > 0);
             if (!last_known_case) {
-                last_known_case = days[days.length-1]; // earliest known day
+                last_known_case = days[days.length - 1]; // earliest known day
                 // TODO: better handling of no known cases
                 return `${days_diff(new Date(last_known_case.date), now)}+`;
             }
             return days_diff(new Date(last_known_case.date), now);
+        }
+
+        function get_date_span_html(start, finish) {
+            const startDay = start.getDate();
+            const finishDay = finish.getDate();
+            if (start.getMonth() === finish.getMonth()) {
+                const month = new Intl.DateTimeFormat('default', {month: 'long'});
+                return `${startDay}<sup>${ordinal_suffix(startDay)}</sup> to `
+                    + `${finishDay}<sup>${ordinal_suffix(finishDay)}</sup> ${month.format(start)}`;
+            } else {
+                const month = new Intl.DateTimeFormat('default', {month: 'short'});
+                return `${startDay}<sup>${ordinal_suffix(startDay)}</sup> ${month.format(start)} to `
+                    + `${finishDay}<sup>${ordinal_suffix(finishDay)}</sup> ${month.format(finish)}`;
+            }
+        }
+
+        function ordinal_suffix(dayNum) {
+            // https://v8.dev/features/intl-pluralrules
+            const pr = new Intl.PluralRules('default', {
+                type: 'ordinal'
+            });
+            const suffixes = new Map([
+                ['one', 'st'],
+                ['two', 'nd'],
+                ['few', 'rd'],
+                ['other', 'th'],
+            ]);
+            return suffixes.get(pr.select(dayNum));
         }
 
         function tidy_name(name) {
@@ -55,8 +83,8 @@
                     // streak continues!
                     streaks[num_streaks].numDays += 1;
                 } else if (streak_active === true && day.newCases > 0) {
-                    // streak ends!
-                    streaks[num_streaks].end = day.date;
+                    // streak finishes!
+                    streaks[num_streaks].finish = day.date;
                     streak_active = false;
                     num_streaks += 1;
                 } else {
@@ -69,37 +97,38 @@
         function get_history_visual(days) {
             const most_recent_day = days[0].date;
             const missing_days = days_diff(new Date(most_recent_day), new Date());
-            for (let index=1; index <= missing_days; index++) {
-                console.debug('index', index, 'missing_days', missing_days)
-                console.debug(index, missing_days);
+            for (let index = 1; index <= missing_days; index++) {
+                const missing_day = {};
                 if (index === missing_days) {
-                    days.unshift({date:"Today", newCases:"no data", class:"today"})
+                    missing_day.date = "Today";
                 } else {
                     const missing_date = new Date(most_recent_day);
                     missing_date.setDate(missing_date.getDate() + index);
-                    days.unshift({date:missing_date.toISOString().split('T')[0], newCases:"no data", class:"unknown"});
+                    missing_day.date = missing_date.toISOString().split('T')[0];
                 }
+                days.unshift({...missing_day, class: "no-data", newCases: "no data"});
             }
-            console.log(days);
+
+            days[0].class = (days[0].class) ? `today ${days[0].class}` : 'today';
 
             const visual = document.createElement('p');
             days.forEach(day => {
                 const dayBlock = document.createElement('span');
-                // dayBlock.innerHTML = '&#x2588; ';
                 dayBlock.innerHTML = '<svg width="20px" height="20px" viewBox="1 1 20 20"><rect width="18px" height="18px" /></svg>';
                 dayBlock.setAttribute('title', `${day.date}, confirmed cases: ${day.newCases}`);
                 if (day.newCases === 0) {
                     dayBlock.className = 'streak';
-                } else if (day.class) {
-                    dayBlock.className = day.class;
                 } else if (day.newCases < 10) {
                     dayBlock.className = 'low';
                 } else if (day.newCases < 20) {
                     dayBlock.className = 'mid';
-                } else {
+                } else if (day.newCases >= 20) {
                     dayBlock.className = 'high';
                 }
-                visual.append(dayBlock)
+                if (day.class) {
+                    dayBlock.className = (dayBlock.className) ? `${dayBlock.className} ${day.class}` : day.class;
+                }
+                visual.append(dayBlock);
             });
             return visual;
         }
@@ -115,16 +144,16 @@
                 const streak = find_streaks([...payload.data].reverse()).reduce(
                     // we reverse here so that if there are multiple matches we get the most recent
                     (prev, curr) => (prev.numDays > curr.numDays) ? prev : curr, {});
-                if ((!!streak.start && !streak.end) ||
-                    ((!!streak.start && !!streak.end) && streak.numDays <= count_days_since(payload.data))) {
-                        streak.numDays = count_days_since(payload.data);
-                        document.getElementById("streak")
-                            .innerText=`this one!`;
-                } else if (!!streak.start && !!streak.end) {
+                if ((!!streak.start && !streak.finish) ||
+                    ((!!streak.start && !!streak.finish) && streak.numDays <= count_days_since(payload.data))) {
+                    streak.numDays = count_days_since(payload.data);
                     document.getElementById("streak")
-                        .innerText = `${streak.numDays} `
+                        .innerText = `this one!`;
+                } else if (!!streak.start && !!streak.finish) {
+                    document.getElementById("streak")
+                        .innerHTML = `${streak.numDays} `
                         + `${(streak.numDays === 1) ? 'day ' : 'days '}`
-                        + `(from ${streak.start} to ${streak.end})`;
+                        + `<span class="date-range">(${get_date_span_html(new Date(streak.start), new Date(streak.finish))})</span>`;
                 } else {
                     document.getElementById("streak").innerText = "none found 😢";
                 }

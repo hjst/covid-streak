@@ -27,6 +27,11 @@ p.previous-streak {
     padding-top: 1em;
     border-top: 1px dashed #aaa;
 }
+span.date-range {
+    font-size: 80%;
+    font-style: italic;
+    padding-left: 1em;
+}
 div.stats {
     padding: 1em;
     margin-left: auto;
@@ -35,18 +40,14 @@ div.stats {
     max-width: 30em;
 }
 #visualisation p { line-height: 0 } /* squish the SVG lines */
-@keyframes blinktoday {
-    100%,
-    0% {
-        fill: transparent;
-    }
-    50% {
-        fill: #ccc;
-    }
+@keyframes pulse {
+    0%   { opacity: 100% }
+    50%  { opacity: 0    }
+    100% { opacity: 100% }
 }
 span.streak  svg { fill: #ccc; }
-span.unknown svg { fill: #ccc; }
-span.today   svg { animation: blinktoday 2s infinite; }
+span.no-data svg { fill: #ccc; }
+span.today   svg { animation: pulse 2s infinite; }
 span.low     svg { fill: rgba(170,25,25,0.35) }
 span.mid     svg { fill: rgba(170,0,0,0.6) }
 span.high    svg { fill: rgba(170,0,0,1) }
@@ -75,17 +76,8 @@ p.nav {
     a, a:hover, a:visited, a:active {
         color: #eee;
     }
-    @keyframes blinktoday {
-        100%,
-        0% {
-            fill: transparent;
-        }
-        50% {
-            fill: #666;
-        }
-    }
     span.streak  svg { fill: #666; }
-    span.unknown svg { fill: #666; }
+    span.no-data svg { fill: #666; }
     span.low     svg { fill: rgba(200,100,100,0.3) }
     span.mid     svg { fill: rgba(150,50,50,0.5) }
     span.high    svg { fill: rgba(125,25,25,0.7) }
