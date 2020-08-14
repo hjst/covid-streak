@@ -14,6 +14,144 @@
     <meta name="twitter:creator" content="@hjst">
     <link rel="stylesheet" href="main.css"/>
     <script lang="JavaScript">
+        class AreaCovidHistory {
+            constructor(apiResponse) {
+                // this.rawDays = apiResponse.data.slice(2);
+                this.rawDays = apiResponse.data;
+                this.area = {
+                    name: apiResponse.data[0].areaName,
+                    code: apiResponse.data[0].areaCode,
+                    type: apiResponse.data[0].areaType,
+                    get friendlyName() {
+                        return this.name.replace(/, (City|County) of/g, '');
+                    }
+                }
+            }
+            get days() {
+                return [...this.missingDays, ...this.rawDays.map(day => {
+                    // semi-abuse destructuring assignment to discard raw fields we don't want
+                    const { areaName, areaCode, areaType, ...cleanDay } = day;
+                    return cleanDay;
+                })];
+            }
+            get daysSinceLastConfirmedCase() {
+                let last_known_case = this.days.find(day => day.newCases > 0);
+                if (!last_known_case) {
+                    last_known_case = this.days[this.days.length - 1]; // earliest known day
+                }
+                // TODO: would it be simpler here to have days[n].date be a Date obj instead of a string?
+                return AreaCovidHistory.daysDiff(new Date(last_known_case.date), new Date());
+            }
+            get missingDays() {
+                const most_recent_day = this.rawDays[0].date;
+                const num_missing_days = AreaCovidHistory.daysDiff(new Date(most_recent_day), new Date());
+                const missing_days = [];
+                for (let index = 1; index <= num_missing_days; index++) {
+                    const missing_date = new Date(most_recent_day);
+                    missing_date.setDate(missing_date.getDate() + index);
+                    missing_days.unshift({date: missing_date.toISOString().split('T')[0], newCases: null}); // TODO: switch to Date objs?
+                }
+                return missing_days;
+            }
+            get streaks() {
+                // TODO: slim this down with Array.map()?
+                const streaks = [];
+                let num_streaks = 0;
+                let streak_active = false;
+                [...this.days].reverse().forEach((day) => {
+                    // reverse here so we can process in chronological order
+                    if (streak_active === false && day.newCases < 1) {
+                        // new streak! (include nulls in streaks)
+                        streak_active = true;
+                        streaks[num_streaks] = {
+                            numDays: 1,
+                            start: day.date
+                        };
+                    } else if (streak_active === true && day.newCases < 1) {
+                        // streak continues!
+                        streaks[num_streaks].numDays += 1;
+                    } else if (streak_active === true && day.newCases > 0) {
+                        // streak finishes!
+                        streaks[num_streaks].finish = day.date;
+                        streak_active = false;
+                        num_streaks += 1;
+                    } else {
+                        // non-streak days, do nothing
+                    }
+                });
+                return streaks;
+            }
+            get longestStreak() {
+                return [...this.streaks].reduce(
+                    (prev, curr) => (prev.numDays > curr.numDays) ? prev : curr, {});
+            }
+            static daysDiff(start, finish) {
+                return Math.floor((finish - start) / 1000 / 60 / 60 / 24);
+            }
+        }
+
+        class StreakHTML {
+            static calendarSeries(days) {
+                const visual = document.createElement('p');
+                days.forEach((day, index) => {
+                    const dayBlock = document.createElement('span');
+                    dayBlock.innerHTML = '<svg width="20px" height="20px" viewBox="1 1 20 20"><rect width="18px" height="18px" /></svg>';
+                    dayBlock.setAttribute('title', `${day.date}, confirmed cases: ${(day.newCases == null) ? 'no data' : day.newCases}`);
+                    dayBlock.className = StreakHTML.calculateBracket(day.newCases);
+                    if (index === 0) dayBlock.className += ' today';
+                    visual.append(dayBlock);
+                });
+                return visual;
+            }
+            static calculateBracket(datum) {
+                // TODO: make this relative rather than absolute
+                switch (datum) {
+                    case null:  return 'no-data';
+                    case 0:     return 'streak';
+                    default:
+                        if(datum < 10) return 'low';
+                        if(datum < 20) return 'mid';
+                        return 'high';
+                }
+            }
+            static dateSpan(start, finish) {
+                const startDay = start.getDate();
+                const finishDay = finish.getDate();
+                if (start.getMonth() === finish.getMonth()) {
+                    const month = new Intl.DateTimeFormat('default', {month: 'long'});
+                    return `${startDay}<sup>${StreakHTML.ordinalSuffix(startDay)}</sup> to `
+                        + `${finishDay}<sup>${StreakHTML.ordinalSuffix(finishDay)}</sup> ${month.format(start)}`;
+                } else {
+                    const month = new Intl.DateTimeFormat('default', {month: 'short'});
+                    return `${startDay}<sup>${StreakHTML.ordinalSuffix(startDay)}</sup> ${month.format(start)} to `
+                        + `${finishDay}<sup>${StreakHTML.ordinalSuffix(finishDay)}</sup> ${month.format(finish)}`;
+                }
+            }
+            static describeStreak(streak) {
+                if (!!streak.start && !streak.finish) {
+                    return "this one!";
+                } else if (!!streak.start && !!streak.finish) {
+                    return `${streak.numDays} ${(streak.numDays === 1) ? 'day ' : 'days '}`
+                        + `<span class="date-range">(${StreakHTML.dateSpan(new Date(streak.start), new Date(streak.finish))})</span>`;
+                } else {
+                    return "none found 😢";
+                }
+            }
+            static ordinalSuffix(dayNum) {
+                // https://v8.dev/features/intl-pluralrules
+                const pr = new Intl.PluralRules('default', {
+                    type: 'ordinal'
+                });
+                const suffixes = new Map([
+                    ['one', 'st'],
+                    ['two', 'nd'],
+                    ['few', 'rd'],
+                    ['other', 'th'],
+                ]);
+                return suffixes.get(pr.select(dayNum));
+            }
+        }
+
         const params = new URLSearchParams(window.location.search);
         const areaType = "utla";
         const areaCode = (params.get("area"));
@@ -26,146 +164,18 @@
             + `?filters=areaType=${areaType};areaCode=${areaCode}`
             + `&structure=${JSON.stringify(responseStructure)}`;
 
-        function days_diff(start, finish) {
-            return Math.floor((finish - start) / 1000 / 60 / 60 / 24);
-        }
-
-        function count_days_since(days) {
-            // Assumes array comes in reverse date order, most recent day first
-            const now = new Date();
-            let last_known_case = days.find(day => day.newCases > 0);
-            if (!last_known_case) {
-                last_known_case = days[days.length - 1]; // earliest known day
-                // TODO: better handling of no known cases
-                return `${days_diff(new Date(last_known_case.date), now)}+`;
-            }
-            return days_diff(new Date(last_known_case.date), now);
-        }
-
-        function get_date_span_html(start, finish) {
-            const startDay = start.getDate();
-            const finishDay = finish.getDate();
-            if (start.getMonth() === finish.getMonth()) {
-                const month = new Intl.DateTimeFormat('default', {month: 'long'});
-                return `${startDay}<sup>${ordinal_suffix(startDay)}</sup> to `
-                    + `${finishDay}<sup>${ordinal_suffix(finishDay)}</sup> ${month.format(start)}`;
-            } else {
-                const month = new Intl.DateTimeFormat('default', {month: 'short'});
-                return `${startDay}<sup>${ordinal_suffix(startDay)}</sup> ${month.format(start)} to `
-                    + `${finishDay}<sup>${ordinal_suffix(finishDay)}</sup> ${month.format(finish)}`;
-            }
-        }
-
-        function ordinal_suffix(dayNum) {
-            // https://v8.dev/features/intl-pluralrules
-            const pr = new Intl.PluralRules('default', {
-                type: 'ordinal'
-            });
-            const suffixes = new Map([
-                ['one', 'st'],
-                ['two', 'nd'],
-                ['few', 'rd'],
-                ['other', 'th'],
-            ]);
-            return suffixes.get(pr.select(dayNum));
-        }
-
-        function tidy_name(name) {
-            return name.replace(/, (City|County) of/g, '');
-        }
-
-        function find_streaks(days) {
-            const streaks = [];
-            let num_streaks = 0;
-            let streak_active = false;
-            days.forEach((day) => {
-                if (streak_active === false && day.newCases === 0) {
-                    // new streak!
-                    streak_active = true;
-                    streaks[num_streaks] = {
-                        numDays: 1,
-                        start: day.date
-                    };
-                } else if (streak_active === true && day.newCases === 0) {
-                    // streak continues!
-                    streaks[num_streaks].numDays += 1;
-                } else if (streak_active === true && day.newCases > 0) {
-                    // streak finishes!
-                    streaks[num_streaks].finish = day.date;
-                    streak_active = false;
-                    num_streaks += 1;
-                } else {
-                    // non-streak days, do nothing
-                }
-            });
-            return streaks;
-        }
-
-        function get_history_visual(days) {
-            const most_recent_day = days[0].date;
-            const missing_days = days_diff(new Date(most_recent_day), new Date());
-            for (let index = 1; index <= missing_days; index++) {
-                const missing_day = {};
-                if (index === missing_days) {
-                    missing_day.date = "Today";
-                } else {
-                    const missing_date = new Date(most_recent_day);
-                    missing_date.setDate(missing_date.getDate() + index);
-                    missing_day.date = missing_date.toISOString().split('T')[0];
-                }
-                days.unshift({...missing_day, class: "no-data", newCases: "no data"});
-            }
-
-            days[0].class = (days[0].class) ? `today ${days[0].class}` : 'today';
-
-            const visual = document.createElement('p');
-            days.forEach(day => {
-                const dayBlock = document.createElement('span');
-                dayBlock.innerHTML = '<svg width="20px" height="20px" viewBox="1 1 20 20"><rect width="18px" height="18px" /></svg>';
-                dayBlock.setAttribute('title', `${day.date}, confirmed cases: ${day.newCases}`);
-                if (day.newCases === 0) {
-                    dayBlock.className = 'streak';
-                } else if (day.newCases < 10) {
-                    dayBlock.className = 'low';
-                } else if (day.newCases < 20) {
-                    dayBlock.className = 'mid';
-                } else if (day.newCases >= 20) {
-                    dayBlock.className = 'high';
-                }
-                if (day.class) {
-                    dayBlock.className = (dayBlock.className) ? `${dayBlock.className} ${day.class}` : day.class;
-                }
-                visual.append(dayBlock);
-            });
-            return visual;
-        }
-
         // TODO: handle HTTP errors https://coronavirus.data.gov.uk/developers-guide#get-responses
         fetch(query_url)
             .then(response => response.json())
             .then(payload => {
+                const history = new AreaCovidHistory(payload);
+                document.title = `COVID: ${history.area.friendlyName}`; // for bookmarks
+                document.getElementById("areaName").innerText = history.area.friendlyName;
+                document.getElementById("daysSince").innerText = history.daysSinceLastConfirmedCase.toString();
+                document.getElementById("streak").innerHTML = StreakHTML.describeStreak(history.longestStreak);
                 document.getElementById("dataSource").href = query_url;
-                document.getElementById("daysSince").innerText = `${count_days_since(payload.data)}`;
-                document.getElementById("areaName").innerText = tidy_name(payload.data[0].areaName);
-                document.title = `COVID: ${tidy_name(payload.data[0].areaName)}`; // for bookmarks
-                const streak = find_streaks([...payload.data].reverse()).reduce(
-                    // we reverse here so that if there are multiple matches we get the most recent
-                    (prev, curr) => (prev.numDays > curr.numDays) ? prev : curr, {});
-                if ((!!streak.start && !streak.finish) ||
-                    ((!!streak.start && !!streak.finish) && streak.numDays <= count_days_since(payload.data))) {
-                    streak.numDays = count_days_since(payload.data);
-                    document.getElementById("streak")
-                        .innerText = `this one!`;
-                } else if (!!streak.start && !!streak.finish) {
-                    document.getElementById("streak")
-                        .innerHTML = `${streak.numDays} `
-                        + `${(streak.numDays === 1) ? 'day ' : 'days '}`
-                        + `<span class="date-range">(${get_date_span_html(new Date(streak.start), new Date(streak.finish))})</span>`;
-                } else {
-                    document.getElementById("streak").innerText = "none found 😢";
-                }
                 document.getElementById("visualisation").insertAdjacentElement(
-                    'beforeend', get_history_visual(payload.data)
+                    'beforeend', StreakHTML.calendarSeries(history.days)
                 );
             });
     </script>
